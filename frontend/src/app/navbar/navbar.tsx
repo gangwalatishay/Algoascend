@@ -9,95 +9,127 @@ import {
 } from "@/components/ui/navigation-menu"
 import { useScrollTop } from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 export default function Navbar() {
   const scrolled = useScrollTop();
+  const navigate = useNavigate();
+  const isAuthed = Boolean(localStorage.getItem("token"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
 
   return (
-    <div className={cn(
-      "fixed w-full border-b border-gray-800 bg-[#0F1115]",
-      scrolled && "border-b shadow-sm"
-    )}>
-      <div className="grid grid-cols-3">
-        <img src="../src/assets/logo.png" alt="Logo" className="h-20 w-20 flex ml-12" />
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
-              <NavigationMenuContent className="bg-[#0F1115] border-gray-800 text-white">
-                <div>
-                  <ul className="grid w-50 gap-0.5 md:w-125 md:grid-row-4 lg:w-100 h-40">
-                    <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
-                      <div>
-                        <a>Foundations Track</a>
-                      </div>
-                    </div>
-                    <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
-                      <div>
-                        <a>Software Engineering Track</a>
-                      </div>
-                    </div>
-                    <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
-                      <div>
-                        <a>Data & Analytics Track</a>
-                      </div>
-                    </div>
-                    <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
-                      <div>
-                        <p className="text-gray-400 text-sm font-light">
-                          For other courses&nbsp; 
-                          <Link
-                            to="/courses"
-                            className="underline text-gray-400 text-sm font-light"
-                          >
-                            visit course page
-                          </Link>
-                        </p>
-                      </div>
-                    </div>
-                  </ul>
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Schools & Institutions</NavigationMenuTrigger>
-              <NavigationMenuContent>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Students</NavigationMenuTrigger>
-              <NavigationMenuContent>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className="hover:bg-[#1A1D23] hover:text-white w-20">
-                <Link
-                  to="/about-us"
-                >
-                  About Us
-                  </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className="hover:bg-[#1A1D23] hover:text-white">
-                <Link
-                  to="/gallery"
-                >
-                  Gallery
-                  </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <Button
-          variant="ghost"
-          size="lg"
-          className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-12">
-          Login
-        </Button>
+    <div
+      className={cn(
+        "fixed w-full border-b border-gray-800 bg-[#0F1115] px-4 md:px-6",
+        scrolled && "border-b shadow-sm"
+      )}
+    >
+      <div className="grid grid-cols-2 md:grid-cols-3 items-center gap-4">
+        <Link to="/app" className="flex items-center ml-4 md:ml-12">
+          <img
+            src="../src/assets/logo.png"
+            alt="Logo"
+            className="h-12 w-12 md:h-16 md:w-16"
+          />
+        </Link>
+        <div className="hidden md:block justify-self-center">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="p-4 w-48">
+                    <Link
+                      to="/app/courses"
+                      className="block p-2 text-sm text-gray-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                    >
+                      All Courses
+                    </Link>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Schools & Institutions</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="p-4 w-48">
+                    <Link
+                      to="/app#schools"
+                      className="block p-2 text-sm text-gray-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                    >
+                      Our Programs
+                    </Link>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Students</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="p-4 w-48">
+                    <Link
+                      to="/app#students"
+                      className="block p-2 text-sm text-gray-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                    >
+                      Success Stories
+                    </Link>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="p-4 w-48">
+                    <Link
+                      to="/app#about"
+                      className="block p-2 text-sm text-gray-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                    >
+                      Our Team
+                    </Link>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Gallery</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="p-4 w-48">
+                    <Link
+                      to="/app#gallery"
+                      className="block p-2 text-sm text-gray-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                    >
+                      Campus Life
+                    </Link>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+        {isAuthed ? (
+          <Button
+            variant="ghost"
+            size="lg"
+            className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-4 md:mr-12"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button
+            asChild
+            variant="ghost"
+            size="lg"
+            className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-4 md:mr-12"
+          >
+            <Link to="/login">Login</Link>
+          </Button>
+        )}
       </div>
     </div>
   )

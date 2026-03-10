@@ -9,6 +9,9 @@ body {
   height: 100%;
   scroll-behavior: smooth;
 }
+body {
+  overflow-x: hidden;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -454,6 +457,47 @@ body {
   background: #2563EB;
 }
 
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    justify-content: center;
+  }
+  .container .box {
+    width: 100%;
+    max-width: 360px;
+    margin: 10px auto;
+  }
+
+  .contact-container {
+    min-width: 0;
+    display: block;
+  }
+  .contact-container .contactInfo {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 24px 16px;
+    box-shadow: none;
+  }
+  .contact-container .contactInfo ul.info {
+    bottom: 0;
+  }
+  .contact-container .contactForm {
+    position: static;
+    width: 100%;
+    margin: 0;
+    padding: 24px 16px;
+    box-shadow: none;
+  }
+  .contact-container .contactForm .formBox {
+    flex-direction: column;
+  }
+  .contact-container .contactForm .formBox .inputBox.w50 {
+    width: 100%;
+  }
+}
 /* footer */
 
 .footercontainer

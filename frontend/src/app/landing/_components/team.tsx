@@ -80,17 +80,21 @@ const teamMembers = [
 
 export default function Team() {
   return (
+
+    
+
     <div className="mt-50 h-350 teamcard">
       <div className="flex flex-col items-center justify-center text-center">
+
         <div className="flex flex-col">
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-3xl md:text-4xl font-bold">
             Meet Our Team
           </h2>
-          <p className="text-xl mt-4">
+          <p className="text-base md:text-xl mt-4">
             Learn from industry professionals with years of experience
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-x-8 gap-y-25 w-full mt-20 p-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full mt-10 md:mt-20">
           {teamMembers.map((member, index) => (
             <div key={index} className="card">
               <div className="imgBx">

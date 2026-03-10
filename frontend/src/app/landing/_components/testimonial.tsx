@@ -27,17 +27,17 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Testimonial() {
   return (
-    <div className=" flex flex-col justify-center items-center">
-      <div className="w-full flex flex-col justify-center items-center text-center">
-        <h2 className="text-[2.5em] font-medium">
+    <div className="px-4 md:px-8 flex flex-col justify-center items-center">
+      <div className="w-full max-w-6xl flex flex-col justify-center items-center text-center">
+        <h2 className="text-3xl md:text-4xl font-medium">
           Success Stories
         </h2>
-        <p className="font-medium mt-2">
+        <p className="font-medium mt-2 max-w-2xl">
           Hear from our alumni who have successfully transitioned into tech careers
         </p>
       </div>
 
-      <div className="container">
+      <div className="container max-w-6xl mx-auto">
         <div className="box">
           <div className="content">
             <img src="../src/assets/testimonial/img.png" alt="" className="quote" />

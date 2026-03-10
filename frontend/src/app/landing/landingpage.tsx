@@ -9,13 +9,21 @@ import Testimonial from "./_components/testimonial";
 
 export default function LandingPage() {
   return (
-    <div>
+    <div className="px-4 md:px-8">
       <Hero />
       <SmallCard />
-      <Explore />
-      <Services />
-      <Team />
-      <Testimonial />
+      <div id="gallery">
+        <Explore />
+      </div>
+      <div id="schools">
+        <Services />
+      </div>
+      <div id="about">
+        <Team />
+      </div>
+      <div id="students">
+        <Testimonial />
+      </div>
       <FAQ />
       <Contact />
     </div>
