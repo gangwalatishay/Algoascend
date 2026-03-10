@@ -543,3 +543,21 @@ body {
   font-size: 20px;
   margin-right: 10px;
 }
+
+
+.blob-shape {
+  border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%;
+  animation: blobMorph 10s infinite ease-in-out;
+}
+
+@keyframes blobMorph {
+  0% {
+    border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%;
+  }
+  50% {
+    border-radius: 40% 60% 45% 55% / 45% 55% 40% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%;
+  }
+}
