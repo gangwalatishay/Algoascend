@@ -124,6 +124,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -140,8 +141,7 @@ body {
 
 
 /* teams */
-.teamcard .card
-{
+.teamcard .card {
   position: relative;
   width: 350px;
   height: 190px;
@@ -150,12 +150,12 @@ body {
   box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
   transition: 0.5s;
 }
-.teamcard .card:hover
-{
+
+.teamcard .card:hover {
   height: 450px;
 }
-.teamcard .imgBx
-{
+
+.teamcard .imgBx {
   position: absolute;
   left: 50%;
   top: -50px;
@@ -168,13 +168,13 @@ body {
   overflow: hidden;
   transition: 0.5s;
 }
-.teamcard .card:hover .imgBx
-{
+
+.teamcard .card:hover .imgBx {
   width: 250px;
   height: 250px;
 }
-.teamcard .imgBx img
-{
+
+.teamcard .imgBx img {
   position: absolute;
   top: 0;
   left: 0;
@@ -182,8 +182,8 @@ body {
   height: 100%;
   object-fit: cover;
 }
-.teamcard .card .content
-{
+
+.teamcard .card .content {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -192,54 +192,54 @@ body {
   align-items: flex-end;
   overflow: hidden;
 }
-.teamcard .card .content .details
-{
+
+.teamcard .card .content .details {
   padding: 40px;
   text-align: center;
   width: 100%;
   transition: 0.5s;
   transform: translateY(160px);
 }
-.teamcard .card:hover .content .details
-{
+
+.teamcard .card:hover .content .details {
   transform: translateY(0px);
 }
-.teamcard .card .content .details h2
-{
+
+.teamcard .card .content .details h2 {
   font-size: 1.25em;
   font-weight: 600;
   color: #555;
   line-height: 1.2em;
 }
-.teamcard .card .content .details h2 span
-{
+
+.teamcard .card .content .details h2 span {
   font-size: 0.75em;
   font-weight: 500;
   opacity: 0.5;
 }
-.teamcard .card .content .details .data
-{
+
+.teamcard .card .content .details .data {
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
 }
-.teamcard .card .content .details .data img
-{
+
+.teamcard .card .content .details .data img {
   width: 40px;
   height: 40px;
   border-radius: 20px;
   object-fit: cover;
   overflow: hidden;
 }
-.teamcard .card .content .details .actionTxt
-{
+
+.teamcard .card .content .details .actionTxt {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.teamcard .card .content .details .actionTxt h3
-{
+
+.teamcard .card .content .details .actionTxt h3 {
   font-size: 1em;
   color: #555;
   line-height: 1.2em;
@@ -249,8 +249,7 @@ body {
 
 /* testimonial */
 
-.container
-{
+.container {
   position: relative;
   width: 1100px;
   display: flex;
@@ -259,8 +258,8 @@ body {
   flex-wrap: wrap;
   margin: 20px;
 }
-.container .box
-{
+
+.container .box {
   position: relative;
   display: flex;
   justify-content: center;
@@ -270,25 +269,25 @@ body {
   margin: 20px;
   background: #121e27;
 }
-.container .box .content
-{
+
+.container .box .content {
   padding: 30px;
   text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
-.container .box .content .quote
-{
+
+.container .box .content .quote {
   max-width: 48px;
 }
-.container .box .content p
-{
+
+.container .box .content p {
   color: #fff;
   padding: 20px 0;
 }
-.container .box .content .user
-{
+
+.container .box .content .user {
   max-width: 72px;
   border-radius: 50%;
   display: flex;
@@ -296,16 +295,16 @@ body {
   justify-content: center;
   text-align: center;
 }
-.container .box .content h3
-{
+
+.container .box .content h3 {
   color: #33d1a0;
   text-transform: uppercase;
   font-size: 16px;
   letter-spacing: 1px;
   font-weight: 600;
 }
-.container .box .content h3 span
-{
+
+.container .box .content h3 span {
   font-size: 12px;
   letter-spacing: 0.5px;
   font-weight: 400;
@@ -313,16 +312,15 @@ body {
 
 /* contact */
 
-.contact-container 
-{
+.contact-container {
   position: relative;
   min-width: 1100px;
   min-height: 550px;
   display: flex;
   z-index: 1000;
 }
-.contact-container .contactInfo
-{
+
+.contact-container .contactInfo {
   position: absolute;
   top: 40px;
   width: 350px;
@@ -336,20 +334,20 @@ body {
   justify-content: space-between;
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
 }
-.contact-container .contactInfo h2
-{
+
+.contact-container .contactInfo h2 {
   color: #fff;
   font-size: 24px;
   font-weight: 500;
 }
-.contact-container .contactInfo ul.info
-{
+
+.contact-container .contactInfo ul.info {
   position: relative;
   margin: 20px 0;
   bottom: 180px;
 }
-.contact-container .contactInfo ul.info li
-{
+
+.contact-container .contactInfo ul.info li {
   position: relative;
   list-style: none;
   display: flex;
@@ -357,13 +355,13 @@ body {
   cursor: pointer;
   align-items: flex-start;
 }
-.contact-container .contactInfo ul.info li span:nth-child(1)
-{
+
+.contact-container .contactInfo ul.info li span:nth-child(1) {
   width: 30px;
   min-width: 30px;
 }
-.contact-container .contactForm
-{
+
+.contact-container .contactForm {
   position: absolute;
   padding: 70px 50px;
   padding-left: 250px;
@@ -373,36 +371,36 @@ body {
   background: #fff;
   box-shadow: 0 50px 50px rgba(0, 0, 0, 0.25);
 }
-.contact-container .contactForm h2
-{
+
+.contact-container .contactForm h2 {
   color: #18181B;
   font-size: 24px;
   font-weight: 500;
 }
-.contact-container .contactForm .formBox
-{
+
+.contact-container .contactForm .formBox {
   position: relative;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   padding-top: 30px;
 }
-.contact-container .contactForm .formBox .inputBox
-{
+
+.contact-container .contactForm .formBox .inputBox {
   position: relative;
   margin-bottom: 30px;
 }
-.contact-container .contactForm .formBox .inputBox.w50
-{
+
+.contact-container .contactForm .formBox .inputBox.w50 {
   width: 47%;
 }
-.contact-container .contactForm .formBox .inputBox.w100
-{
+
+.contact-container .contactForm .formBox .inputBox.w100 {
   width: 100%;
 }
+
 .contact-container .contactForm .formBox .inputBox Input,
-.contact-container .contactForm .formBox .inputBox Textarea
-{
+.contact-container .contactForm .formBox .inputBox Textarea {
   width: 100%;
   resize: none;
   padding: 5px 0;
@@ -413,14 +411,14 @@ body {
   outline: none;
   border-bottom: 1px solid #777;
 }
-.contact-container .contactForm .formBox .inputBox Textarea
-{
+
+.contact-container .contactForm .formBox .inputBox Textarea {
   height: 120px;
   position: relative;
   top: 50px;
 }
-.contact-container .contactForm .formBox .inputBox span
-{
+
+.contact-container .contactForm .formBox .inputBox span {
   position: absolute;
   left: 0;
   padding: 10px 15px;
@@ -430,54 +428,53 @@ body {
   transition: 0.3s;
   color: #111;
 }
-.contact-container .contactForm .formBox .inputBox Input:focus ~ span,
-.contact-container .contactForm .formBox .inputBox Input:valid ~ span,
-.contact-container .contactForm .formBox .inputBox Textarea:focus ~ span,
-.contact-container .contactForm .formBox .inputBox Textarea:valid ~ span
-{
+
+.contact-container .contactForm .formBox .inputBox Input:focus~span,
+.contact-container .contactForm .formBox .inputBox Input:valid~span,
+.contact-container .contactForm .formBox .inputBox Textarea:focus~span,
+.contact-container .contactForm .formBox .inputBox Textarea:valid~span {
   transform: translateY(-30px);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 1px;
   color: #A1A1AA;
 }
-.contact-container .contactForm .formBox .inputBox Button
-{
+
+.contact-container .contactForm .formBox .inputBox Button {
   position: relative;
   cursor: pointer;
   background: #3B82F6;
   color: #fff;
   border: none;
 }
-.contact-container .contactForm .formBox .inputBox Button:hover
-{
+
+.contact-container .contactForm .formBox .inputBox Button:hover {
   background: #2563EB;
 }
 
 /* footer */
 
-.footercontainer
-{
+.footercontainer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: row;
 }
-.footercontainer .sec
-{
+
+.footercontainer .sec {
   margin-right: 30px;
 }
-.footercontainer .sec.aboutus
-{
+
+.footercontainer .sec.aboutus {
   width: 30%;
 }
-.footercontainer .sec.aboutus img
-{
+
+.footercontainer .sec.aboutus img {
   position: relative;
   margin-bottom: 15px;
 }
-.footercontainer img::before
-{
+
+.footercontainer img::before {
   content: '';
   position: absolute;
   bottom: -5px;
@@ -486,15 +483,15 @@ body {
   height: 2px;
   background: #f00;
 }
-.footercontainer h2
-{
+
+.footercontainer h2 {
   position: relative;
   color: #fff;
   font-weight: 500;
   margin-bottom: 15px;
 }
-.footercontainer h2::before
-{
+
+.footercontainer h2::before {
   content: '';
   position: absolute;
   bottom: -5px;
@@ -503,42 +500,42 @@ body {
   height: 2px;
   background: #f00;
 }
-.quickLinks
-{
+
+.quickLinks {
   position: relative;
   width: 15%;
 }
-.quickLinks ul li
-{
+
+.quickLinks ul li {
   list-style: none;
 }
-.quickLinks ul li a
-{
+
+.quickLinks ul li a {
   color: #3B82F6;
   text-decoration: none;
   margin-bottom: 10px;
   display: inline-block;
 }
-.quickLinks ul li a:hover
-{
+
+.quickLinks ul li a:hover {
   color: #2563EB;
 }
-.contact
-{
+
+.contact {
   width: calc(25% - 60px);
   margin-right: 0 !important;
 }
-.contact .info
-{
+
+.contact .info {
   position: relative;
 }
-.contact .info li
-{
+
+.contact .info li {
   display: flex;
   margin-bottom: 16px;
 }
-.contact .info li span:nth-child(1)
-{
+
+.contact .info li span:nth-child(1) {
   color: #fff;
   font-size: 20px;
   margin-right: 10px;
@@ -554,10 +551,17 @@ body {
   0% {
     border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%;
   }
+
   50% {
     border-radius: 40% 60% 45% 55% / 45% 55% 40% 60%;
   }
+
   100% {
     border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%;
   }
+}
+
+/* Fix select dropdown z-index */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
 }

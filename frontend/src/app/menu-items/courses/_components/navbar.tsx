@@ -9,12 +9,35 @@ import {
 } from "@/components/ui/navigation-menu"
 import { useScrollTop } from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils"
-import { Link } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const scrolled = useScrollTop();
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+
+    checkAuth();
+    const interval = setInterval(checkAuth, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleAuth = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('currentUser');
+      setIsLoggedIn(false);
+      navigate('/');
+    } else {
+      navigate('/signup');
+    }
+  };
 
   return (
     <div className={cn(
@@ -27,35 +50,35 @@ export default function Navbar() {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
-              <NavigationMenuContent>
+              <NavigationMenuContent className="bg-[#0F1115] border-gray-800 text-white">
                 <div>
                   <ul className="grid w-50 gap-0.5 md:w-125 md:grid-row-4 lg:w-100 h-40">
                     <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
                       <div>
-                        <a>RegNote</a>
+                        <a>Foundations Track</a>
                       </div>
                     </div>
                     <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
                       <div>
-                        <a>Calender</a>
+                        <a>Software Engineering Track</a>
                       </div>
                     </div>
                     <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
                       <div>
-                        <a>Web clipper</a>
+                        <a>Data & Analytics Track</a>
                       </div>
                     </div>
                     <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
                       <div>
                         <p className="text-gray-400 text-sm font-light">
-                          RegNote is always at home right
+                          For other courses&nbsp;
+                          <Link
+                            to="/courses"
+                            className="underline text-gray-400 text-sm font-light"
+                          >
+                            visit course page
+                          </Link>
                         </p>
-                        <Link
-                          to="/courses"
-                          className="underline text-gray-400 text-sm font-light"
-                        >
-                          in your browser
-                        </Link>
                       </div>
                     </div>
                   </ul>
@@ -78,7 +101,7 @@ export default function Navbar() {
                   to="/about-us"
                 >
                   About Us
-                  </Link>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -87,7 +110,7 @@ export default function Navbar() {
                   to="/gallery"
                 >
                   Gallery
-                  </Link>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -95,8 +118,9 @@ export default function Navbar() {
         <Button
           variant="ghost"
           size="lg"
-          className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-12">
-          Rolen In
+          onClick={handleAuth}
+          className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-12 px-6">
+          {isLoggedIn ? 'Logout' : 'Login'}
         </Button>
       </div>
     </div>

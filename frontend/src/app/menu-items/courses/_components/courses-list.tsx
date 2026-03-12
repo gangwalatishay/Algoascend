@@ -1,7 +1,9 @@
 import course1 from "@/assets/courses/courses1.jpg";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { loadRazorpayCheckout, openCheckout } from "@/lib/razorpay";
 
 const courseGroups = [
   {
@@ -222,35 +224,108 @@ const courseGroups = [
   },
 ];
 
-export default function CoursesList() {
+function rupeesToPaise(str: string) {
+  const clean = str.replace(/[^\d]/g, "");
+  const rupees = parseInt(clean, 10);
+  return rupees * 100;
+}
 
+export default function CoursesList() {
+  const navigate = useNavigate();
   const location = useLocation();
 
-useEffect(() => {
-  if (location.hash) {
-    const element = document.getElementById(location.hash.substring(1));
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
+  async function handleBuy(course: { id: number; price: string; features: string[] }) {
+    const userId = localStorage.getItem("userId") || "guest";
+    const amount = rupeesToPaise(course.price);
+
+    const loaded = await loadRazorpayCheckout();
+    if (!loaded) {
+      alert("Failed to load Razorpay");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/api/payment/create-order", {
+        courseId: String(course.id),
+        amount,
+        userId,
+      });
+
+      const { orderId, key_id, currency } = res.data;
+      const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+      openCheckout(
+        {
+          key: key_id,
+          amount,
+          currency,
+          name: "Algoascend",
+          description: course.features[0] || "Course",
+          order_id: orderId,
+          prefill: {
+            name: user.name || "",
+            email: user.email || "",
+            contact: user.mobile || "",
+          },
+        },
+        async (resp) => {
+          try {
+            const verify = await axios.post("http://127.0.0.1:5000/api/payment/verify", {
+              razorpay_order_id: resp.razorpay_order_id,
+              razorpay_payment_id: resp.razorpay_payment_id,
+              razorpay_signature: resp.razorpay_signature,
+              courseId: String(course.id),
+              userId,
+            });
+            if (verify.data?.success) {
+              alert("Payment successful. Course unlocked!");
+            } else {
+              alert("Payment verification failed");
+            }
+          } catch (err: unknown) {
+            const e = err as { response?: { data?: { error?: string } }; message?: string };
+            alert("Payment verification error: " + (e.response?.data?.error || e.message || "Unknown error"));
+          }
+        },
+        () => {
+          alert("Payment popup closed");
+        }
+      );
+    } catch (err: unknown) {
+      const e = err as { response?: { data?: { error?: string } }; message?: string };
+      alert("Order creation failed: " + (e.response?.data?.error || e.message || "Unknown error"));
     }
   }
-}, [location]);
-  
+
   return (
-    <div className="mt-30 w-full flex flex-col items-center coursespage gap-32">
+    <div className="mt-20 md:mt-30 w-full flex flex-col items-center coursespage gap-16 md:gap-32 px-4 md:px-8 lg:px-12">
       {courseGroups.map((group, groupIndex) => (
         <div
           key={groupIndex}
           id={group.slug}
-          className="w-full pl-20 scroll-mt-32"
+          className="w-full scroll-mt-24 md:scroll-mt-32"
         >
           {/* GROUP TITLE */}
-          <h2 className="text-3xl font-bold mb-10 text-start text-muted-foreground">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 md:mb-10 text-start text-muted-foreground">
             {group.groupName}
           </h2>
           {/* GROUP CARDS */}
-          <div className="grid grid-cols-3 gap-x-40 gap-y-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
             {group.courses.map((course) => (
-              <div className="card" key={course.id}>
+              <div
+                className="card cursor-pointer"
+                key={course.id}
+                onClick={() => navigate(`/course/${course.id}`)}
+              >
                 <div
                   className="imgBx"
                   style={{ backgroundImage: `url(${course.image})` }}
@@ -264,18 +339,35 @@ useEffect(() => {
                       <li key={index}>{item}</li>
                     ))}
                   </ul>
-                  <div className="flex flex-row justify-center items-center mt-8 gap-x-20">
+                  <div className="flex flex-row justify-center items-center mt-8 gap-x-2">
                     <Button
                       variant="default"
-                      className="text-white bg-[#970747] hover:bg-[#970747]"
+                      className="text-white bg-[#970747] hover:bg-[#970747] text-xs px-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        alert("Added to wishlist!");
+                      }}
                     >
                       WishList
                     </Button>
                     <Button
                       variant="outline"
-                      className="text-[#970747] hover:text-[#970747] bg-[#232949] hover:bg-[#232949] border-[#970747]"
+                      className="text-[#970747] hover:text-[#970747] bg-[#232949] hover:bg-[#232949] border-[#970747] text-xs px-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        alert("Added to cart!");
+                      }}
                     >
-                      Add to card
+                      Add to cart
+                    </Button>
+                    <Button
+                      className="bg-sky-500 hover:bg-sky-600 text-white text-xs px-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleBuy(course);
+                      }}
+                    >
+                      Buy Now
                     </Button>
                   </div>
                 </div>

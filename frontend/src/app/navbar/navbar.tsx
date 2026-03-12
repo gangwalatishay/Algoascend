@@ -9,12 +9,39 @@ import {
 } from "@/components/ui/navigation-menu"
 import { useScrollTop } from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils"
-import { Link } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const scrolled = useScrollTop();
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState('');
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      setIsLoggedIn(!!token);
+      setUserRole(user.role || '');
+    };
+
+    checkAuth();
+    // Check auth status every second to update when user logs in/out
+    const interval = setInterval(checkAuth, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleAuth = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('currentUser');
+      setIsLoggedIn(false);
+      navigate('/');
+    } else {
+      navigate('/signup');
+    }
+  };
 
   return (
     <div className={cn(
@@ -48,7 +75,7 @@ export default function Navbar() {
                     <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
                       <div>
                         <p className="text-gray-400 text-sm font-light">
-                          For other courses&nbsp; 
+                          For other courses&nbsp;
                           <Link
                             to="/courses"
                             className="underline text-gray-400 text-sm font-light"
@@ -78,7 +105,7 @@ export default function Navbar() {
                   to="/about-us"
                 >
                   About Us
-                  </Link>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -87,7 +114,7 @@ export default function Navbar() {
                   to="/gallery"
                 >
                   Gallery
-                  </Link>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -95,8 +122,9 @@ export default function Navbar() {
         <Button
           variant="ghost"
           size="lg"
-          className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-12">
-          Login
+          onClick={handleAuth}
+          className="bg-[#3B82F6] text-white font-medium hover:bg-[#2563EB] hover:text-white self-center justify-self-end mr-12 px-6">
+          {isLoggedIn ? 'Logout' : 'Login'}
         </Button>
       </div>
     </div>
