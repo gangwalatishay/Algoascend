@@ -86,14 +86,17 @@ async function login(req, res) {
 
     // Find user by email or mobile
     const query = email ? { email } : { mobile };
+    console.log('Login attempt with query:', JSON.stringify(query));
     const user = await User.findOne(query);
 
     if (!user) {
+      console.log('User not found for query:', JSON.stringify(query));
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log('Password match result:', isMatch);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
